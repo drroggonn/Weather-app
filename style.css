@@ -5,7 +5,7 @@ body {
 
 body {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -28,8 +28,25 @@ body {
   height: calc(100% - 1.5em);
   padding: 0;
 }
+
+#rowDetails {
+  height: 100%;
+}
+
 #current-data {
   height: 75%;
+  overflow-y: hidden;
+}
+
+#current-data strong {
+  font-size: 50px;
+  line-height: 1;
+  font-weight: 400;
+}
+
+#current-data small {
+  position: relative;
+  top: -25px;
 }
 
 #current-details {
@@ -41,7 +58,7 @@ body {
 }
 
 #currently-in {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 /* #current-weather {
