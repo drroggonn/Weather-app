@@ -3,7 +3,6 @@
 function showTime() {
   // Get the current date and time
   let currentDate = new Date();
-
   // Get the day of the week
   let daysOfWeek = [
     "Sunday",
@@ -15,7 +14,6 @@ function showTime() {
     "Saturday",
   ];
   let dayOfWeek = daysOfWeek[currentDate.getDay()];
-
   // Get the hours and minutes
   let hours = currentDate.getHours();
   let minutes = currentDate.getMinutes();
@@ -28,10 +26,18 @@ function showTime() {
 }
 
 function showTemperature(response) {
+  // console.log(response.data.main);
   let temperature = Math.round(response.data.main.temp);
   let city = response.data.name;
-  let cityTemp = document.querySelector("p#temperature");
-  cityTemp.innerHTML = `${temperature}°C`;
+  let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  let cityTemp = document.querySelector("#tempElement");
+  cityTemp.innerHTML = `${temperature}`;
+
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = response.data.main.humidity;
+  windElement.innerHTML = Math.round(response.data.wind.speed);
 }
 
 function requestTemperature(city) {

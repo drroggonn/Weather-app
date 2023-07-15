@@ -33,9 +33,15 @@
                 <p id="current-time"> Tuesday 16:00</p>
                 <i id="current-weather-icon">🌦</i>
                
-                <p id="meaning">Sunny</p>
+                <p id="meaning">
+                  <span id="description">Sunny</span>
+                </p>
                 <p id="temperature"> 
-                  <strong>16</strong> 
+                  <strong> 
+                     <span id="tempElement">
+                    16
+                     </span>
+                  </strong> 
                   <small>°C |°F</small>
                 </p>
             </div>
@@ -44,21 +50,32 @@
                 <div class="col add-info">
                   <div class="info-title">sunrise & sunset</div>
                   <div class="data">
-                    <p>6:44 am </br> 
-                        8:23 pm</p>
+                    <p class="sign"> 
+                      <span  id="sunrise">6:44</span> am
+                       </br>
+                       <span id="sunset">8:23</span> pm
+                    </p>
                   </div>
                 </div>
 
 
                 <div class="col add-info" id="mid-element">
                   <div class="info-title">wind speed</div>
-                  <div class="data">8km/h</div>
+                  <div class="data">
+                    <p class="sign">
+                      <span id="wind">8</span> km/h
+                    </p>
+                  </div>
                 </div>
 
 
                 <div class="col add-info">
                   <div class="info-title">humidity</div>
-                  <div class="data">13%</div>
+                  <div class="data">
+                    <p class="sign">
+                      <span id="humidity">13</span> %
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

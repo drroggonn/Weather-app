@@ -61,14 +61,14 @@ body {
   margin-top: 10px;
 }
 
-/* #current-weather {
-  display: block;
-  margin: 0 auto;
-} */
 #current-weather-icon {
   text-align: center;
   font-size: 120px;
   display: block;
+}
+
+#meaning:first-letter {
+  text-transform: capitalize;
 }
 
 #meaning,
