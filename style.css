@@ -52,6 +52,11 @@ body {
 #current-details {
   height: 25%;
 }
+
+#city {
+  text-transform: capitalize;
+}
+
 #currently-in,
 #city {
   text-align: center;
