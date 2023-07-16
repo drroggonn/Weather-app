@@ -36,6 +36,7 @@ body {
 #current-data {
   height: 75%;
   overflow-y: hidden;
+  text-align: center;
 }
 
 #current-data strong {
@@ -66,10 +67,10 @@ body {
   margin-top: 10px;
 }
 
-#current-weather-icon {
-  text-align: center;
-  font-size: 120px;
-  display: block;
+/* #current-weather-icon, */
+#image {
+  width: 150px;
+  height: 150px;
 }
 
 #meaning:first-letter {

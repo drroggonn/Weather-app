@@ -55,6 +55,7 @@ function showTemperature(response) {
   let cityTemp = document.querySelector("#tempElement");
   let sunriseElement = document.querySelector("#sunrise");
   let sunsetElement = document.querySelector("#sunset");
+  let imageElement = document.querySelector("#image");
   cityTemp.innerHTML = `${temperature}`;
 
   descriptionElement.innerHTML = response.data.weather[0].description;
@@ -66,6 +67,12 @@ function showTemperature(response) {
   sunsetElement.textContent = convertUnixUTCToRealTime(
     response.data.sys.sunset
   );
+
+  imageElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  imageElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 function requestTemperature(city) {
@@ -111,9 +118,11 @@ function convertToCelsius(event) {
 
 // Loading functions along with html page
 function onLoad() {
+  showTime();
+  requestTemperature("Dnipro");
+
   let searchForm = document.querySelector("#search-form");
   searchForm.addEventListener("submit", searchCity);
-  showTime();
 
   // Convert temperature into Farenheit
   let fahrenheitLink = document.querySelector("#fahrenheit-link");
