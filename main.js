@@ -1,3 +1,6 @@
+// Global variable that has true value if the temp is shown in Celcius
+let isCelcius = true;
+
 // Feature 1
 // Display the current date and time using JavaScript: Tuesday 16:00
 function showTime() {
@@ -26,7 +29,7 @@ function showTime() {
 }
 
 function showTemperature(response) {
-  // console.log(response.data.main);
+  console.log(response.data.main);
   let temperature = Math.round(response.data.main.temp);
   let city = response.data.name;
   let descriptionElement = document.querySelector("#description");
@@ -59,11 +62,39 @@ function searchCity(event) {
   requestTemperature(cityName);
 }
 
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  if (!isCelcius) {
+    return;
+  }
+  let temperatureElement = document.querySelector("#tempElement");
+  let currentValue = +temperatureElement.textContent;
+  temperatureElement.textContent = (currentValue * 9) / 5 + 32;
+  isCelcius = false;
+}
+
+function convertToCelsius(event) {
+  event.preventDefault();
+  if (isCelcius) {
+    return;
+  }
+  let temperatureElement = document.querySelector("#tempElement");
+  let currentValue = +temperatureElement.textContent;
+  temperatureElement.textContent = (5 / 9) * (currentValue - 32);
+  isCelcius = true;
+}
+
 // Loading functions along with html page
 function onLoad() {
   let searchForm = document.querySelector("#search-form");
   searchForm.addEventListener("submit", searchCity);
   showTime();
+
+  // Convert temperature into Farenheit
+  let fahrenheitLink = document.querySelector("#fahrenheit-link");
+  fahrenheitLink.addEventListener("click", convertToFahrenheit);
+  let celsiusLink = document.querySelector("#celsius-link");
+  celsiusLink.addEventListener("click", convertToCelsius);
 }
 
 window.addEventListener("load", onLoad);
