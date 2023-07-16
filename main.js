@@ -28,19 +28,44 @@ function showTime() {
   }`;
 }
 
+// Convert Unix UTC to hh:mm:ss (12h format)
+function convertUnixUTCToRealTime(unixUTC) {
+  let date = new Date(unixUTC * 1000);
+  let hours = date.getHours();
+  let minutes = date.getMinutes().toString();
+  let seconds = date.getSeconds().toString();
+  if (hours === 0) {
+    hours === 12;
+  } else if (hours > 12) {
+    hours -= 12;
+  }
+
+  return `${hours < 10 ? "0" + hours : hours}:${
+    minutes < 10 ? "0" + minutes : minutes
+  }:${seconds < 10 ? "0" + seconds : seconds}`;
+}
+
 function showTemperature(response) {
-  console.log(response.data.main);
+  console.log(response.data);
   let temperature = Math.round(response.data.main.temp);
   let city = response.data.name;
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let cityTemp = document.querySelector("#tempElement");
+  let sunriseElement = document.querySelector("#sunrise");
+  let sunsetElement = document.querySelector("#sunset");
   cityTemp.innerHTML = `${temperature}`;
 
   descriptionElement.innerHTML = response.data.weather[0].description;
   humidityElement.innerHTML = response.data.main.humidity;
   windElement.innerHTML = Math.round(response.data.wind.speed);
+  sunriseElement.textContent = convertUnixUTCToRealTime(
+    response.data.sys.sunrise
+  );
+  sunsetElement.textContent = convertUnixUTCToRealTime(
+    response.data.sys.sunset
+  );
 }
 
 function requestTemperature(city) {
