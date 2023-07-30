@@ -1,21 +1,23 @@
 // Global variable that has true value if the temp is shown in Celcius
 let isCelcius = true;
 
+// Global constant for forecast and current day
+const DAYS_OF_WEEK = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 // Display the current date and time using JavaScript: Tuesday 16:00
 function showTime() {
   // Get the current date and time
   let currentDate = new Date();
   // Get the day of the week
-  let daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let dayOfWeek = daysOfWeek[currentDate.getDay()];
+  let dayOfWeek = DAYS_OF_WEEK[currentDate.getDay()];
   // Get the hours and minutes
   let hours = currentDate.getHours();
   let minutes = currentDate.getMinutes();
@@ -53,25 +55,42 @@ function displayForecast(response) {
   // create an appropriate data forecast for each day
   const AMOUNT_OF_DAYS = 6;
   for (let i = 1; i < AMOUNT_OF_DAYS + 1; i++) {
+    const currentDay = response.data.daily[i];
+
+    // get day of week from currentDay
+    let weekDay = DAYS_OF_WEEK[new Date(currentDay.dt * 1000).getDay()];
+    weekDay = weekDay.substring(0, 3);
+    let maxTemp = `H: ${Math.round(currentDay.temp.max)}`;
+    let minTemp = `L: ${Math.round(currentDay.temp.min)}`;
+    let dayIconSrc = `http://openweathermap.org/img/wn/${currentDay.weather[0].icon}@2x.png`;
+    let dayIconAlt = currentDay.weather[0].description;
+
     // create an empty div for a forecast for a day
     let forecastDay = document.createElement("div");
     forecastDay.className = "row";
 
     // fill in forecast for a day
-    let weekDay = document.createElement("div");
-    weekDay.className = "col";
-    let dayIcon = document.createElement("div");
-    dayIcon.className = "col";
-    let maxTemp = document.createElement("div");
-    maxTemp.className = "col";
-    let minTemp = document.createElement("div");
-    minTemp.className = "col";
+    let weekDayElement = document.createElement("div");
+    weekDayElement.className = "col";
+    weekDayElement.textContent = weekDay;
+    let dayIconElement = document.createElement("div");
+    dayIconElement.className = "col";
+    let dayImage = document.createElement("img");
+    dayImage.setAttribute("src", dayIconSrc);
+    dayImage.setAttribute("alt", dayIconAlt);
+    let maxTempElement = document.createElement("div");
+    maxTempElement.className = "col";
+    maxTempElement.textContent = maxTemp;
+    let minTempElement = document.createElement("div");
+    minTempElement.className = "col";
+    minTempElement.textContent = minTemp;
 
     // append created elements to the page
-    forecastDay.appendChild(weekDay);
-    forecastDay.appendChild(dayIcon);
-    forecastDay.appendChild(maxTemp);
-    forecastDay.appendChild(minTemp);
+    forecastDay.appendChild(weekDayElement);
+    dayIconElement.appendChild(dayImage);
+    forecastDay.appendChild(dayIconElement);
+    forecastDay.appendChild(maxTempElement);
+    forecastDay.appendChild(minTempElement);
     forecast.appendChild(forecastDay);
   }
 }
@@ -127,6 +146,7 @@ function searchCity(event) {
   let cityInput = document.querySelector("#search-bar");
   let city = document.querySelector("#city");
   let cityName = cityInput.value;
+  if (!cityName.trim()) return;
   city.innerHTML = cityName;
   event.target.reset();
   // Requesting temperature from external API

@@ -33,6 +33,11 @@ body {
   height: 100%;
 }
 
+#rowDetails > .col {
+  max-height: 100%;
+  overflow: hidden;
+}
+
 #current-data {
   height: 75%;
   overflow-y: hidden;
@@ -104,12 +109,16 @@ body {
   height: 80%;
 }
 
+#search-form {
+  height: 10%;
+  max-height: 10%;
+  padding-top: 10px;
+}
+
 form {
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
   padding-right: 10px;
-  height: 6%;
 }
 
 #search-button {
@@ -120,8 +129,11 @@ form {
 }
 
 .forecast {
-  height: 94%;
-  margin: 10px 0 20px 0;
+  height: 90%;
+  max-height: 90%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
 .forecast > .row {
