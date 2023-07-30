@@ -1,7 +1,6 @@
 // Global variable that has true value if the temp is shown in Celcius
 let isCelcius = true;
 
-// Feature 1
 // Display the current date and time using JavaScript: Tuesday 16:00
 function showTime() {
   // Get the current date and time
@@ -45,10 +44,26 @@ function convertUnixUTCToRealTime(unixUTC) {
   }:${seconds < 10 ? "0" + seconds : seconds}`;
 }
 
+function displayForecast(response) {
+  console.log(response.data.daily);
+}
+
+function getForecast(coordinates) {
+  let apiKey = "a969311cfcbb4a83dfad2cf7478397f9";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
+
+function requestTemperature(city) {
+  let apiKey = "a969311cfcbb4a83dfad2cf7478397f9";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
+  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
+}
+
 function showTemperature(response) {
   console.log(response.data);
   let temperature = Math.round(response.data.main.temp);
-  let city = response.data.name;
+  // let city = response.data.name;
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
@@ -68,6 +83,9 @@ function showTemperature(response) {
     response.data.sys.sunset
   );
 
+  // Getting lat and long from api
+  getForecast(response.data.coord);
+
   imageElement.setAttribute(
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
@@ -75,13 +93,6 @@ function showTemperature(response) {
   imageElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-function requestTemperature(city) {
-  let apiKey = "a969311cfcbb4a83dfad2cf7478397f9";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric`;
-  axios.get(`${apiUrl}&appid=${apiKey}`).then(showTemperature);
-}
-
-// Feature 2
 // When searching for a city (i.e. Paris), display the city name on the page after the user submits the form and requesting temp
 function searchCity(event) {
   event.preventDefault();
