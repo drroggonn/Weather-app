@@ -46,6 +46,34 @@ function convertUnixUTCToRealTime(unixUTC) {
 
 function displayForecast(response) {
   console.log(response.data.daily);
+  // clear all HTML
+  let forecast = document.querySelector(".forecast");
+  forecast.innerHTML = "";
+
+  // create an appropriate data forecast for each day
+  const AMOUNT_OF_DAYS = 6;
+  for (let i = 1; i < AMOUNT_OF_DAYS + 1; i++) {
+    // create an empty div for a forecast for a day
+    let forecastDay = document.createElement("div");
+    forecastDay.className = "row";
+
+    // fill in forecast for a day
+    let weekDay = document.createElement("div");
+    weekDay.className = "col";
+    let dayIcon = document.createElement("div");
+    dayIcon.className = "col";
+    let maxTemp = document.createElement("div");
+    maxTemp.className = "col";
+    let minTemp = document.createElement("div");
+    minTemp.className = "col";
+
+    // append created elements to the page
+    forecastDay.appendChild(weekDay);
+    forecastDay.appendChild(dayIcon);
+    forecastDay.appendChild(maxTemp);
+    forecastDay.appendChild(minTemp);
+    forecast.appendChild(forecastDay);
+  }
 }
 
 function getForecast(coordinates) {
